@@ -27,6 +27,7 @@ def generate_sql_q1(sql_i1, tb1):
     cond_ops = ['=', '>', '<', 'OP']
 
     headers = tb1["header"]
+    types = tb1["types"]
     # select_header = headers[sql['sel']].lower()
     # try:
     #     select_table = tb1["name"]
@@ -57,9 +58,10 @@ def generate_sql_q1(sql_i1, tb1):
             if i > 0:
                 sql_query_part2 += ' AND'
                 # sql_plus_query_part2 += ' AND'
-
-            sql_query_part2 += f" {where_header} {where_op} {where_str}"
-
+            if types[where_header_idx]=='text':
+                sql_query_part2 += f" {where_header} {where_op} '{where_str}'"
+            else:
+                sql_query_part2 += f" {where_header} {where_op} '{where_str}'"
     sql_query = sql_query_part1 + sql_query_part2
     # sql_plus_query = sql_plus_query_part1 + sql_plus_query_part2
 
@@ -133,6 +135,7 @@ def generate_sql_q1(sql_i1, tb1):
     cond_ops = ['=', '>', '<', 'OP']
 
     headers = tb1["header"]
+    types = tb1["types"]
     # select_header = headers[sql['sel']].lower()
     # try:
     #     select_table = tb1["name"]
@@ -164,7 +167,10 @@ def generate_sql_q1(sql_i1, tb1):
                 sql_query_part2 += ' AND'
                 # sql_plus_query_part2 += ' AND'
 
-            sql_query_part2 += f" {where_header} {where_op} {where_str}"
+            if types[where_header_idx]=='text':
+                sql_query_part2 += f" {where_header} {where_op} '{where_str}'"
+            else:
+                sql_query_part2 += f" {where_header} {where_op} '{where_str}'"
 
     sql_query = sql_query_part1 + sql_query_part2
     # sql_plus_query = sql_plus_query_part1 + sql_plus_query_part2
